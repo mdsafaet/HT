@@ -22,6 +22,7 @@ use  TraitsApiResponseTrait;
         'name' => $data['name'],
         'email' => $data['email'],
         'password' => bcrypt($data['password']),
+        'role_id' => $data['role_id'],
         
 
      
@@ -31,6 +32,7 @@ use  TraitsApiResponseTrait;
 
     return $this->success($token);
     }
+    
 
     public function login()
     {
