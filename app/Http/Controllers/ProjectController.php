@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRegisterRequest;
 use App\Models\Project;
+use App\Trait\TraitsApiResponseTrait;
 use Illuminate\Http\Request;
+
+use App\Traits\ApiResponseTrait;
 
 class ProjectController extends Controller
 {
+    use TraitsApiResponseTrait;
     /**
      * Display a listing of the resource.
      */
@@ -18,9 +23,21 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(ProjectRegisterRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $project = Project::create([
+            'name' => $data['name'],
+            'user_id' => $data['user_id']
+        ]);
+
+ 
+
+    $project->users()->attach($data['user_id']);
+
+    return $this->success($project);
+
     }
 
     /**
