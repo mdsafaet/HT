@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model

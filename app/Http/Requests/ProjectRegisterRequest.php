@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Validation\Validator;
 
 class ProjectRegisterRequest extends FormRequest
 {
@@ -29,15 +29,15 @@ class ProjectRegisterRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+      protected function failedValidation(Validator $validator): void
     {
         $response = response()->json([
-            'errors' => $validator->getMessageBag(),
+            'errors' => $validator->errors(),
         ], 422);
 
         throw new ValidationException($validator, $response);
     }
-
+    
     
 
 }
