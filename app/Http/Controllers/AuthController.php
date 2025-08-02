@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Trait\TraitsApiResponseTrait;
+use Illuminate\Http\Request;
+
+use App\Http\Requests\UserRegisterRequest;
 
 class AuthController extends Controller
 {
@@ -34,15 +37,26 @@ use  TraitsApiResponseTrait;
     }
     
 
-    public function login()
+    public function login( Request $request )
     {
-        $credentials = request(['email', 'password']);
+        // $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // if (! $token = auth()->attempt($credentials)) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+
+        // return $this->respondWithToken($token);
+
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->success('Login successful', [
+            'token' => $token,
+            'user' => auth()->user(),
+        ]);
     }
 
     

@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 
-class TaskRegisterRequest extends FormRequest
+class TagRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +24,7 @@ class TaskRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'project_id' => 'required|exists:projects,id',
-            'status' => 'nullable|in:pending,in_progress,completed',
-            'due_date' => 'nullable|date',
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|unique:tags,name|max:255'
         ];
     }
 

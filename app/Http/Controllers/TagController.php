@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use App\Trait\TraitsApiResponseTrait;
+use App\Http\Requests\TagRegisterRequest;
 
 class TagController extends Controller
+
+
+
+
+
 {
+     use TraitsApiResponseTrait;
+
+    
     /**
      * Display a listing of the resource.
      */
@@ -26,9 +37,16 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TagRegisterRequest $request)
     {
-        //
+        
+        $data = $request->validated();
+
+        $tag = Tag::create([
+            'name' => $data['name']
+        ]);
+
+        return $this->success('Tag created successfully', $tag);
     }
 
     /**
@@ -58,8 +76,18 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag ,$id)
     {
-        //
+         $tag = Tag::find($id);
+
+        if (!$tag) {
+            return $this->error('Tag not found', 404);
+        }
+
+        if ($tag->delete()) {
+            return $this->success('Tag deleted successfully');
+        }
+
+        return $this->error('Failed to delete tag', 500);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TaskController;
-use App\Models\Project as ModelsProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
+use App\Models\Project as ModelsProject;
+use App\Http\Controllers\ProjectController;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
@@ -39,4 +40,10 @@ Route::get('/show', [TaskController::class, 'index']);
 Route::post('/create', [TaskController::class, 'create']); 
 Route::put('/update/{id}', [TaskController::class, 'update']); 
 Route::delete('/delete/{id}', [TaskController::class, 'destroy']); 
+
+
+//tag
+
+Route::post('/create', [TagController::class, 'store']);  
+Route::delete('/delete/{id}', [TagController::class, 'destroy']); 
 
