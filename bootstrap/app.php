@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\AuthTokenCheck;
-use App\Http\Middleware\RoleMiddleware;
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,12 +18,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
 
         $middleware->alias([
-            'auth.token' => AuthTokenCheck::class,
-            'admin' => AdminMiddleware::class,
-           
-            'superadmin' => SuperAdminMiddleware::class,
+
+
           
-            'role' => RoleMiddleware::class,
+            // 'role' => RoleMiddleware::class,
+            'role' => \App\Http\Middleware\SafaetMiddleware::class,
+
         ]);
 
     })

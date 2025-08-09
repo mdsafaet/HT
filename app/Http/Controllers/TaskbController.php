@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
-use App\Models\Project;
-use App\Http\Controllers\Controller;
-use App\Trait\TraitsApiResponseTrait;
 use App\Http\Requests\TaskRegisterRequest;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Project;
+use App\Models\Task;
+use App\Trait\TraitsApiResponseTrait;
+use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class TaskbController extends Controller
 {
-    use TraitsApiResponseTrait,AuthorizesRequests;
 
+    use TraitsApiResponseTrait;
     /**
-     * Display a listing of the tasks.
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $tasks = Task::all();
-
-
-       
-
+         $tasks = Task::all();
 
 
         if ($tasks) {
@@ -33,11 +28,11 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for creating a new task.
+     * Store a newly created resource in storage.
      */
-    public function create(TaskRegisterRequest $request)
+    public function store(TaskRegisterRequest $request)
     {
-        $data = $request->validated();
+         $data = $request->validated();
 
         // Ensure project exists before creating the task
         $project = Project::find($data['project_id']);
@@ -56,35 +51,19 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created task in storage.
+     * Display the specified resource.
      */
-    public function store($request)
+    public function show(string $id)
     {
-        // Keep this blank like ProjectController
+        //
     }
 
     /**
-     * Display the specified task.
+     * Update the specified resource in storage.
      */
-    public function show(Task $task)
+    public function update(TaskRegisterRequest $request, string $id)
     {
-       
-    }
-
-    /**
-     * Show the form for editing the specified task.
-     */
-    public function edit(Task $task)
-    {
-        // Keep this blank like ProjectController
-    }
-
-    /**
-     * Update the specified task in storage.
-     */
-    public function update(TaskRegisterRequest $request, $id)
-    {
-        $task = Task::find($id);
+          $task = Task::find($id);
 
   
 
@@ -103,11 +82,11 @@ class TaskController extends Controller
     }
 
     /**
-     * Remove the specified task from storage.
+     * Remove the specified resource from storage.
      */
-    public function destroy(Task $task, $id)
+    public function destroy(string $id)
     {
-        $task = Task::find($id);
+         $task = Task::find($id);
 
         if (!$task) {
             return $this->error('Task not found', 404);

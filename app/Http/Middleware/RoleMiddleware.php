@@ -18,8 +18,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next,$role): Response
     {
-        $user = auth()->user();
-        if($user->hasRole($role)){
+        dd('Safaet');
+        $user = auth()->user()->load('role');
+        dd($user);
+        if($user->$role){
+
             return $next($request);
         }
         return $this->unauthorized();

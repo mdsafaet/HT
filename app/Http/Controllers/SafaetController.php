@@ -2,23 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TagProjects;
 use Illuminate\Http\Request;
 
-class TagProjectsController extends Controller
+class SafaetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
     {
         //
     }
@@ -34,15 +25,7 @@ class TagProjectsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TagProjects $tagProjects)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TagProjects $tagProjects)
+    public function show(string $id)
     {
         //
     }
@@ -50,7 +33,7 @@ class TagProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TagProjects $tagProjects)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +41,7 @@ class TagProjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TagProjects $tagProjects)
+    public function destroy(string $id)
     {
         //
     }

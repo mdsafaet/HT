@@ -10,16 +10,19 @@ use App\Trait\TraitsApiResponseTrait;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\UserRegisterRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AuthController extends Controller
 {
 
-use  TraitsApiResponseTrait;
+use  TraitsApiResponseTrait,AuthorizesRequests;
 
     
  public function register(UserRegisterRequest $request) {
 
     $data = $request->validated();
+
+  
 
     $user = User::create([
         'name' => $data['name'],
@@ -55,7 +58,7 @@ use  TraitsApiResponseTrait;
 
         return $this->success('Login successful', [
             'token' => $token,
-            'user' => auth()->user(),
+            'user' => auth()->user()->load('role'),
         ]);
     }
 

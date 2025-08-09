@@ -19,15 +19,14 @@ class ProjectController extends Controller
     public function index()
     {
         $project = Project::all();
-         if ($project) {
-            return $this->success('All Project', $project);
-        }
-        return $this->error();
   
         //  $this->authorize("view", $project);
 
 
-
+        if ($project) {
+            return $this->success('All Project', $project);
+        }
+        return $this->error();
     }
 
     /**
@@ -37,7 +36,7 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-      
+        $this->authorize('create', $project);
 
         $project = Project::create([
             'name' => $data['name'],

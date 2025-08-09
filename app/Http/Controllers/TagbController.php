@@ -2,23 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use App\Trait\TraitsApiResponseTrait;
 use App\Http\Requests\TagRegisterRequest;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Tag;
+use App\Trait\TraitsApiResponseTrait;
+use Illuminate\Http\Request;
 
-class TagController extends Controller
-
-
-
-
-
+class TagbController extends Controller
 {
-     use TraitsApiResponseTrait,AuthorizesRequests;
 
-    
+    use TraitsApiResponseTrait;
     /**
      * Display a listing of the resource.
      */
@@ -28,20 +20,11 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(TagRegisterRequest $request ,$tag)
+    public function store(TagRegisterRequest $request)
     {
-        
-        $data = $request->validated();
+         $data = $request->validated();
 
        
 
@@ -55,15 +38,7 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tag $tag)
+    public function show(string $id)
     {
         //
     }
@@ -71,7 +46,7 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -79,9 +54,9 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag ,$id)
+    public function destroy(string $id)
     {
-         $tag = Tag::find($id);
+        $tag = Tag::find($id);
 
         
 
@@ -95,4 +70,5 @@ class TagController extends Controller
 
         return $this->error('Failed to delete tag', 500);
     }
+    
 }
